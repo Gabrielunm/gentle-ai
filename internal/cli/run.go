@@ -118,11 +118,19 @@ func RunInstall(args []string, detection system.DetectionResult) (InstallResult,
 	}
 
 	result.Verify = runPostApplyVerification(homeDir, input.Selection, resolved)
+	result.Verify = withPostInstallNotes(result.Verify, resolved)
 	if !result.Verify.Ready {
 		return result, fmt.Errorf("post-apply verification failed:\n%s", verify.RenderReport(result.Verify))
 	}
 
 	return result, nil
+}
+
+func withPostInstallNotes(report verify.Report, resolved planner.ResolvedPlan) verify.Report {
+	if hasComponent(resolved.OrderedComponents, model.ComponentGGA) && report.Ready {
+		report.FinalNote = report.FinalNote + "\n\nGGA is now installed globally. To enable project hooks, run in each repo:\n- gga init\n- gga install"
+	}
+	return report
 }
 
 func buildStagePlan(selection model.Selection, resolved planner.ResolvedPlan) pipeline.StagePlan {

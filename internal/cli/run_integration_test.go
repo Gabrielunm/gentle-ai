@@ -956,6 +956,12 @@ func TestRunInstallGGALinuxIncludesTempCleanupBeforeClone(t *testing.T) {
 		}
 	}
 
+	for _, cmd := range commands {
+		if strings.Contains(cmd, "gga install") || strings.Contains(cmd, "gga init") {
+			t.Fatalf("expected global gga provisioning only, got repo-level command: %s", cmd)
+		}
+	}
+
 	if cleanupIdx == -1 {
 		t.Fatalf("expected cleanup command before clone, got commands: %v", commands)
 	}
