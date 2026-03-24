@@ -37,7 +37,7 @@ export type OpencodeClient = ReturnType<typeof createOpencodeClient>
 // INLINED: kdco-primitives/with-timeout
 // ==========================================
 
-export class TimeoutError extends Error {
+class TimeoutError extends Error {
   readonly name = "TimeoutError" as const
   readonly timeoutMs: number
   constructor(message: string, timeoutMs: number) {
@@ -46,7 +46,7 @@ export class TimeoutError extends Error {
   }
 }
 
-export async function withTimeout<T>(
+async function withTimeout<T>(
   promise: Promise<T>,
   ms: number,
   message = "Operation timed out",
@@ -69,7 +69,7 @@ export async function withTimeout<T>(
 // INLINED: kdco-primitives/log-warn
 // ==========================================
 
-export function logWarn(
+function logWarn(
   client: OpencodeClient | undefined,
   service: string,
   message: string,
