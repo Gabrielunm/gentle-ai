@@ -638,6 +638,9 @@
     <li>El equipo reporta ser mas rapido y ordenado a la hora de entregar y documentar.</li>
   </ul>
 
+  <h3>Un concepto pendiente: IA no es solo un LLM</h3>
+  <p>El equipo adopto agentes de IA (Claude Code, Codex, etc.) y eso esta muy bien, pero hay un salto conceptual que todavia falta dar. IA no es solo pedirle cosas a un modelo de lenguaje. Hay una capa entera de procesos inteligentes algoritmicos que pueden optimizar flujos sin necesidad de un LLM: automatizacion de CI/CD, analisis estatico, deteccion de patrones en codigo, pipelines de validacion, bots de triaje. Distinguir cuando usar un agente conversacional y cuando usar un proceso algoritmico determinista es la diferencia entre usar IA como herramienta y entender IA como disciplina.</p>
+
   <div class="separator"></div>
 
   <h3>QA</h3>
@@ -802,7 +805,7 @@
         </tr>
         <tr>
           <td>IA olvidaba contexto</td>
-          <td>Mitigado con mejores practicas de uso. Se resuelve completamente con memoria persistente.</td>
+          <td>El equipo ya usa Engram (memoria persistente), pero no de manera correcta. Falta estructurar como se guardan decisiones y convenciones para que el contexto realmente persista entre sesiones.</td>
           <td><span class="status status-partial">Parcial</span></td>
         </tr>
         <tr>
@@ -826,7 +829,7 @@
 
   <h3>Problemas que persisten</h3>
   <ul>
-    <li>La IA a veces no hace lo que se le dice o "se olvida" del trabajo. Esto es inherente al uso sin memoria persistente y sin specs formales. Se resuelve con SDD y Engram.</li>
+    <li>La IA a veces no hace lo que se le dice o "se olvida" del trabajo. El equipo ya tiene Engram instalado pero no lo esta usando de forma efectiva. Falta definir que se guarda, cuando y con que estructura. Combinado con SDD, esto se resuelve de raiz.</li>
     <li>Desconfianza de parte de algunos miembros (Raul, Francisco). Es sana cuando se canaliza como verificacion, pero puede frenar la adopcion si no se trabaja.</li>
     <li>El testing automatizado sigue sin implementarse. Es el gap mas grande y mas riesgoso para la calidad.</li>
   </ul>
@@ -850,44 +853,56 @@
 
   <div class="card card-accent" style="position: relative;">
     <span class="rec-number">02</span>
-    <h4>Implementar memoria persistente (Engram)</h4>
-    <p>Resuelve de raiz la queja de Diego y del equipo general sobre el olvido de contexto. La IA recuerda decisiones, convenciones y contexto entre sesiones.</p>
+    <h4>Usar Engram correctamente</h4>
+    <p>El equipo ya tiene Engram instalado, lo cual es un buen primer paso, pero no lo esta aprovechando. La memoria persistente solo sirve si se define que guardar: decisiones arquitectonicas, convenciones de equipo, contexto de tareas en progreso, patrones de migracion. Sin esa disciplina, es como tener un disco rigido y no guardar nada en el.</p>
   </div>
 
   <div class="card card-accent" style="position: relative;">
     <span class="rec-number">03</span>
+    <h4>Actualizar el stack de herramientas con Gentle AI</h4>
+    <p>El equipo tiene las piezas sueltas (agentes, Engram, skills) pero no un ecosistema unificado. Gentle AI integra todo en un solo comando: SDD, memoria persistente, documentacion on-demand, skills custom y configuracion de agentes. Actualizar a Gentle AI les da un unico punto de gobierno sobre todas las herramientas de IA que ya usan, en lugar de tener cada pieza configurada por separado.</p>
+  </div>
+
+  <div class="card card-accent" style="position: relative;">
+    <span class="rec-number">04</span>
     <h4>Priorizar testing automatizado</h4>
     <p>Definir un punto de ruptura claro. Desde este commit en adelante, todo codigo nuevo tiene tests. No intentar cubrir todo el legacy de golpe, eso paraliza. Unit tests primero, e2e con Playwright despues.</p>
   </div>
 
   <div class="card card-accent" style="position: relative;">
-    <span class="rec-number">04</span>
+    <span class="rec-number">05</span>
     <h4>Trabajar la desconfianza con evidencia</h4>
     <p>Raul y Francisco necesitan ver resultados concretos en su propio codigo. No se les convence con charlas, se les convence cuando un skill custom genera codigo que respeta sus patrones y la verificacion les muestra que el resultado es correcto.</p>
   </div>
 
   <div class="card card-accent" style="position: relative;">
-    <span class="rec-number">05</span>
+    <span class="rec-number">06</span>
     <h4>Evaluar mejor los pasos de implementacion</h4>
     <p>Antes de asignar una tarea, usar la IA para hacer el split y la estimacion. Esto ya se empezo a hacer pero necesita formalizarse como parte del proceso, no como algo opcional.</p>
   </div>
 
   <div class="card card-accent" style="position: relative;">
-    <span class="rec-number">06</span>
+    <span class="rec-number">07</span>
     <h4>Automatizar release notes</h4>
     <p>Ya se creo un skill para esto. El siguiente paso es integrarlo en el flujo de CI/CD para que no dependa de que alguien se acuerde de ejecutarlo.</p>
   </div>
 
   <div class="card card-accent" style="position: relative;">
-    <span class="rec-number">07</span>
+    <span class="rec-number">08</span>
     <h4>Documentar el por que, no solo el que</h4>
     <p>Cada cambio deberia documentar no solo que se hizo sino por que. Engram cubre esto a nivel de IA, pero tambien necesitan un estandar humano (ADRs o similar) para que el equipo que venga despues entienda las decisiones.</p>
   </div>
 
   <div class="card card-accent" style="position: relative;">
-    <span class="rec-number">08</span>
+    <span class="rec-number">09</span>
     <h4>Mejorar la especificacion dentro del codigo</h4>
     <p>Tienen que situar que hay y que deberia haber. Marcar un punto de ruptura y decir "desde aqui para adelante se hace de la forma esperada". Esto es exactamente lo que SDD formaliza.</p>
+  </div>
+
+  <div class="card card-accent" style="position: relative;">
+    <span class="rec-number">10</span>
+    <h4>Distinguir IA de LLM: incorporar procesos algoritmicos</h4>
+    <p>El equipo aprendio a trabajar con agentes conversacionales y eso es un gran avance. Pero IA no es solo un LLM. Hay procesos inteligentes algoritmicos (automatizacion de CI/CD, analisis estatico, deteccion de patrones, pipelines de validacion, bots de triaje) que resuelven problemas de forma determinista sin necesidad de un modelo de lenguaje. Saber cuando usar un agente y cuando usar un proceso algoritmico es lo que separa a un equipo que usa IA de un equipo que entiende IA.</p>
   </div>
 
   <div class="page-footer">
@@ -905,7 +920,7 @@
 
   <p style="font-size: 15px; line-height: 1.8; color: var(--text-primary);">El equipo de Neural Labs paso de usar IA de forma aislada y con resultados inconsistentes a tener skills de repositorio, flujos asistidos, documentacion mejorada y una mentalidad de mejora continua. Los tiempos mejoraron y la comunicacion entre equipo tambien.</p>
 
-  <p style="font-size: 15px; line-height: 1.8; color: var(--text-primary);">Lo que falta es estructurar lo que aprendieron: SDD para que el flujo sea deterministico, Engram para que el contexto no se pierda, testing para que la calidad no dependa solo de Jordi, y un punto de ruptura claro que separe el "como se hacia antes" del "como se hace ahora".</p>
+  <p style="font-size: 15px; line-height: 1.8; color: var(--text-primary);">Lo que falta es estructurar lo que aprendieron. Unificar el stack con Gentle AI para tener un solo punto de gobierno. Usar Engram de forma efectiva, no solo tenerlo instalado. Implementar SDD para que el flujo sea deterministico. Incorporar testing para que la calidad no dependa solo de Jordi. Y dar el salto conceptual de entender que IA no es solo un LLM: hay procesos algoritmicos que resuelven problemas enteros sin necesidad de un modelo conversacional.</p>
 
   <div class="neon-divider"></div>
 
