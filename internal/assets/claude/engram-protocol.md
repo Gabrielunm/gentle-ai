@@ -1,84 +1,59 @@
-## Engram Persistent Memory — Protocol
+## Engram Persistent Memory — Protocol (Gentleman Optimized)
 
-You have access to Engram, a persistent memory system that survives across sessions and compactions.
-This protocol is MANDATORY and ALWAYS ACTIVE — not something you activate on demand.
+You have access to Engram, a persistent memory system. This protocol is MANDATORY and ALWAYS ACTIVE.
 
-### PROACTIVE SAVE TRIGGERS (mandatory — do NOT wait for user to ask)
+### PROACTIVE SAVE TRIGGERS (Mandatory — No "Sure", No "I hope")
 
-Call `mem_save` IMMEDIATELY and WITHOUT BEING ASKED after any of these:
-- Architecture or design decision made
-- Team convention documented or established
-- Workflow change agreed upon
-- Tool or library choice made with tradeoffs
-- Bug fix completed (include root cause)
-- Feature implemented with non-obvious approach
-- Notion/Jira/GitHub artifact created or updated with significant content
-- Configuration change or environment setup done
-- Non-obvious discovery about the codebase
-- Gotcha, edge case, or unexpected behavior found
-- Pattern established (naming, structure, convention)
-- User preference or constraint learned
+Call `mem_save` IMMEDIATELY after:
+- Architecture/design decision.
+- Team convention or workflow change.
+- Tool/library choice with tradeoffs.
+- Bug fix + root cause.
+- Non-obvious discovery or edge case.
+- User preference or constraint learned.
 
-Self-check after EVERY task: "Did I make a decision, fix a bug, learn something non-obvious, or establish a convention? If yes, call mem_save NOW."
+### GENTLEMAN'S DREAM (Memory Consolidation)
 
-Format for `mem_save`:
-- **title**: Verb + what — short, searchable (e.g. "Fixed N+1 query in UserList")
-- **type**: bugfix | decision | architecture | discovery | pattern | config | preference
-- **scope**: `project` (default) | `personal`
-- **topic_key** (recommended for evolving topics): stable key like `architecture/auth-model`
-- **content**:
-  - **What**: One sentence — what was done
-  - **Why**: What motivated it (user request, bug, performance, etc.)
-  - **Where**: Files or paths affected
-  - **Learned**: Gotchas, edge cases, things that surprised you (omit if none)
+To keep memory efficient and prevent "context rot", you MUST perform a "Dream" pass periodically or upon user request ("limpiá la memoria", "consolidá"):
 
-Topic update rules:
-- Different topics MUST NOT overwrite each other
-- Same topic evolving → use same `topic_key` (upsert)
-- Unsure about key → call `mem_suggest_topic_key` first
-- Know exact ID to fix → use `mem_update`
+#### Phase 1: Orient & Search
+- Use `mem_search` to see what already exists before creating new topics.
+- Read existing topic files to **improve/update** them rather than creating duplicates.
+- Use `topic_key` religiously for evolving concepts (e.g., `arch/auth`, `api/conventions`).
 
-### WHEN TO SEARCH MEMORY
+#### Phase 2: Consolidate & Absolute Dates
+- **Merge** new signals into existing topic files.
+- **Convert** relative dates ("yesterday", "last week") to absolute dates (YYYY-MM-DD).
+- **Prune** contradictions: If a new finding disproves an old memory, `mem_update` or delete the stale info at the source.
 
-On any variation of "remember", "recall", "what did we do", "how did we solve", "recordar", "acordate", "qué hicimos", or references to past work:
-1. Call `mem_context` — checks recent session history (fast, cheap)
-2. If not found, call `mem_search` with relevant keywords
-3. If found, use `mem_get_observation` for full untruncated content
+#### Phase 3: Concise Indexing
+- Keep the main memory index concise (max 200 lines).
+- Entries should be one-line hooks: `- [Title](topic_key) — brief summary`.
+- Move detailed technical descriptions to specific topic files, NOT the index.
 
-Also search PROACTIVELY when:
-- Starting work on something that might have been done before
-- User mentions a topic you have no context on
-- User's FIRST message references the project, a feature, or a problem — call `mem_search` with keywords from their message to check for prior work before responding
+### FORMAT FOR `mem_save` / `mem_update`
+- **title**: Verb + What (searchable).
+- **type**: bugfix | decision | architecture | discovery | pattern | config | preference.
+- **topic_key**: Stable, kebab-case (e.g., `ui/atomic-design`).
+- **content**: 
+  - **What**: One-line summary.
+  - **Why**: Motivation/context.
+  - **Where**: Affected paths.
+  - **Learned**: Crucial gotchas (omit if none).
+  - **Date**: YYYY-MM-DD.
 
-### SESSION CLOSE PROTOCOL (mandatory)
+### WHEN TO RECALL
+1. User asks ("recordar", "qué hicimos").
+2. Starting a task that sounds familiar.
+3. User's first message references prior features/problems — call `mem_search` proactively.
 
-Before ending a session or saying "done" / "listo" / "that's it", call `mem_session_summary`:
-
-## Goal
-[What we were working on this session]
-
-## Instructions
-[User preferences or constraints discovered — skip if none]
-
-## Discoveries
-- [Technical findings, gotchas, non-obvious learnings]
-
-## Accomplished
-- [Completed items with key details]
-
-## Next Steps
-- [What remains to be done — for the next session]
-
-## Relevant Files
-- path/to/file — [what it does or what changed]
-
-This is NOT optional. If you skip this, the next session starts blind.
+### SESSION CLOSE (Mandatory)
+Before saying "done" / "listo", call `mem_session_summary`:
+- **Goal**: What we did.
+- **Accomplished**: Key completions.
+- **Next Steps**: For the next session.
+- **Files**: Path — Purpose.
 
 ### AFTER COMPACTION
-
-If you see a compaction message or "FIRST ACTION REQUIRED":
-1. IMMEDIATELY call `mem_session_summary` with the compacted summary content — this persists what was done before compaction
-2. Call `mem_context` to recover additional context from previous sessions
-3. Only THEN continue working
-
-Do not skip step 1. Without it, everything done before compaction is lost from memory.
+1. Call `mem_session_summary` IMMEDIATELY to persist state before it's lost.
+2. Call `mem_context` to re-orient.

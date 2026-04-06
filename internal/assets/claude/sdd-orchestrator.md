@@ -110,6 +110,17 @@ proposal -> specs --> tasks -> apply -> verify -> archive
            design
 ```
 
+### SDD Archive & Consolidation (Gentleman's Dream)
+
+When a change is archived via `/sdd-archive`, or at the end of a complex session, you MUST perform a **Memory Consolidation (Dream)** pass:
+
+1. **Refine Engram**: Review the `sdd/{change-name}/*` artifacts and extract only the durable architecture decisions and learned patterns.
+2. **Update Index**: Call `mem_save` or `mem_update` on the `skill-registry` or project index topics to reflect new capabilities.
+3. **Prune Rot**: Delete or demote intermediate exploration notes that are now superseded by the final implementation.
+4. **Absolute Dates**: Ensure all new memories use YYYY-MM-DD instead of relative time.
+
+Goal: Keep the long-term memory DENSE and high-signal.
+
 ### Result Contract
 Each phase returns: `status`, `executive_summary`, `artifacts`, `next_recommended`, `risks`, `skill_resolution`.
 
