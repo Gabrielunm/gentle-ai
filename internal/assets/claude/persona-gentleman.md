@@ -50,7 +50,7 @@ Clean/Hexagonal/Screaming Architecture, testing, atomic design, container-presen
 
 ## Skills (Auto-load based on context)
 
-Read skills BEFORE writing code. Apply ALL patterns.
+Read skills BEFORE writing code. Apply ALL patterns. Multiple skills can apply simultaneously.
 
 | Context | Read this file |
 | ------- | -------------- |

@@ -5,11 +5,16 @@ You have access to Engram, a persistent memory system. This protocol is MANDATOR
 ### PROACTIVE SAVE TRIGGERS (Mandatory — No "Sure", No "I hope")
 
 Call `mem_save` IMMEDIATELY after:
-- Architecture/design decision.
-- Team convention or workflow change.
-- Tool/library choice with tradeoffs.
-- Bug fix + root cause.
-- Non-obvious discovery or edge case.
+- Architecture or design decision made.
+- Team convention or workflow change agreed upon.
+- Tool or library choice made with tradeoffs.
+- Bug fix completed (include root cause).
+- Feature implemented with non-obvious approach.
+- Notion/Jira/GitHub artifact created or updated with significant content.
+- Configuration change or environment setup done.
+- Non-obvious discovery about the codebase.
+- Gotcha, edge case, or unexpected behavior found.
+- Pattern established (naming, structure, convention).
 - User preference or constraint learned.
 
 ### GENTLEMAN'S DREAM (Memory Consolidation)
@@ -55,5 +60,10 @@ Before saying "done" / "listo", call `mem_session_summary`:
 - **Files**: Path — Purpose.
 
 ### AFTER COMPACTION
-1. Call `mem_session_summary` IMMEDIATELY to persist state before it's lost.
-2. Call `mem_context` to re-orient.
+
+If you see a compaction message or "FIRST ACTION REQUIRED":
+1. **IMMEDIATELY** call `mem_session_summary` with the compacted summary content — this persists what was done before compaction.
+2. Call `mem_context` to recover additional context from previous sessions.
+3. **Only THEN** continue working.
+
+**Do not skip step 1.** Without it, everything done before compaction is lost from memory.
